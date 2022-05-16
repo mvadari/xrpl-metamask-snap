@@ -1,5 +1,7 @@
 const RIPPLED_URL = 'wss://s2.ripple.com:51233';
 const { XrplClient } = require('xrpl-client');
+// const rac = require('ripple-address-codec');
+const rk = require('ripple-keypairs')
 
 const client = new XrplClient(RIPPLED_URL);
 
@@ -13,7 +15,39 @@ async function getPing() {
 }
 
 wallet.registerRpcMessageHandler(async (originString, requestObject) => {
+  let state = await wallet.request({
+    method: 'snap_manageState',
+    params: ['get'],
+  });
+
+  if (!state) {
+    state = { seed: null };
+    // initialize state if empty and set default data
+    await wallet.request({
+      method: 'snap_manageState',
+      params: ['update', state],
+    });
+  }
+
   switch (requestObject.method) {
+    case 'storeSeed':
+      state.seed = requestObject.seed;
+      await wallet.request({
+        method: 'snap_manageState',
+        params: ['update', state],
+      });
+      const {publicKey} = rk.deriveKeypair(state.seed)
+      const classicAddress = rk.deriveAddress(publicKey)
+      return wallet.request({
+        method: 'snap_confirm',
+        params: [
+          {
+            prompt: `Hello, ${originString}!`,
+            description: 'The address has been saved to your address book',
+            textAreaContent: `Classic Address: ${classicAddress}\n`,
+          },
+        ],
+      });
     case 'ping':
       const data = await getPing();
       return wallet.request({

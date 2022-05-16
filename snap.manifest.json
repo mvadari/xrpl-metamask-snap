@@ -7,7 +7,7 @@
     "url": "https://github.com/mvadari/xrpl-metamask-snap.git"
   },
   "source": {
-    "shasum": "5LbPohjXC0AewU/Y89+YUx7RZyrr0vD6niiOMGGNVCU=",
+    "shasum": "OdWsxyKQ8gJZFjlfCB/NuIgbEgCE8uwGq1/9mFjSU5M=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -19,7 +19,8 @@
   },
   "initialPermissions": {
     "snap_confirm": {},
-    "endowment:network-access": {}
+    "endowment:network-access": {},
+    "snap_manageState": {}
   },
   "manifestVersion": "0.1"
 }

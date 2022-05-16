@@ -26,6 +26,14 @@
 
     <button class="connect">Connect</button>
     <button class="sendPing">Send Ping</button>
+
+    <form id="storeSeed">
+      <fieldset>
+        <label for="seed">Seed:</label> 
+        <input type="text" id="seed" name="seed"><br>
+        <input type="submit" id="storeSeed" value="Save">
+      </fieldset>
+    </form>
   </body>
 
   <script>
@@ -59,6 +67,28 @@
       } catch (err) {
         console.error(err)
         alert('Problem happened: ' + err.message || err)
+      }
+    }
+
+    const storeSeedForm = document.getElementById('storeSeed')
+    storeSeedForm.addEventListener('submit', storeSeed)
+
+    async function storeSeed (e) {
+      e.preventDefault() // to prevent default form behavior 
+
+      const seed = document.getElementById('seed').value
+
+      try { 
+          const response = await ethereum.request({
+            method: 'wallet_invokeSnap', 
+            params: [snapId, {
+              method: 'storeSeed',
+              seed: seed
+            }]
+          })
+      } catch (err) { 
+          console.error(err)
+          alert('Problem happened: ' + err.message || err)
       }
     }
   </script>

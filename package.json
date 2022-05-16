@@ -50,6 +50,7 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
+    "xrpl": "^2.2.3",
     "xrpl-client": "^1.9.5"
   }
 }
