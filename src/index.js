@@ -1,15 +1,12 @@
-// const RIPPLED_URL = 'https://www.etherchain.org/api/gasPriceOracle'
-const RIPPLED_URL = 'https://cors-anywhere.herokuapp.com/https://s2.ripple.com:51234';
+const RIPPLED_URL = 'wss://s2.ripple.com:51233';
+const { XrplClient } = require('xrpl-client');
+
+const client = new XrplClient(RIPPLED_URL);
 
 async function getRippledData() {
   try {
-    const response = await fetch(RIPPLED_URL, {
-      method: 'POST',
-      mode: 'cors',
-      body: JSON.stringify({ method: 'server_info' }),
-    });
-    // const response = await fetch(RIPPLED_URL, {method: 'GET', mode: 'cors'});
-    return response.text();
+    const result = await client.send({command: 'ping'})
+    return JSON.stringify(result)
   } catch (err) {
     return err.stack;
   }

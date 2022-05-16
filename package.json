@@ -48,5 +48,8 @@
   },
   "engines": {
     "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "xrpl-client": "^1.9.5"
   }
 }
