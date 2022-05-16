@@ -34,6 +34,14 @@
         <input type="submit" id="storeSeed" value="Save">
       </fieldset>
     </form>
+
+    <form id="signMessage">
+      <fieldset>
+        <label for="message">Message:</label> 
+        <input type="text" id="message" name="message"><br>
+        <input type="submit" id="signMessage" value="Save">
+      </fieldset>
+    </form>
   </body>
 
   <script>
@@ -84,6 +92,29 @@
             params: [snapId, {
               method: 'storeSeed',
               seed: seed
+            }]
+          })
+      } catch (err) { 
+          console.error(err)
+          alert('Problem happened: ' + err.message || err)
+      }
+    }
+
+    const signMessageForm = document.getElementById('signMessage')
+    signMessageForm.addEventListener('submit', signMessage)
+  
+    async function signMessage (e) {
+      e.preventDefault() // to prevent default form behavior 
+
+      const message = document.getElementById('message').value
+      console.log(message);
+
+      try { 
+          const response = await ethereum.request({
+            method: 'wallet_invokeSnap', 
+            params: [snapId, {
+              method: 'signMessage',
+              message: message
             }]
           })
       } catch (err) { 

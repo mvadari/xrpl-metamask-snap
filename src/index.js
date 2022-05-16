@@ -48,6 +48,19 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
           },
         ],
       });
+    case 'signMessage':
+      const { privateKey } = rk.deriveKeypair(state.seed);
+      const signedMessage = rk.sign(requestObject.message, privateKey);
+      return wallet.request({
+        method: 'snap_confirm',
+        params: [
+          {
+            prompt: `Hello, ${originString}!`,
+            description: 'The address has been saved to your address book',
+            textAreaContent: `Signed Message: ${signedMessage}\n`,
+          },
+        ],
+      });
     case 'ping':
       const data = await getPing();
       return wallet.request({
