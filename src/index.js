@@ -3,10 +3,10 @@ const { XrplClient } = require('xrpl-client');
 
 const client = new XrplClient(RIPPLED_URL);
 
-async function getRippledData() {
+async function getPing() {
   try {
-    const result = await client.send({command: 'ping'})
-    return JSON.stringify(result)
+    const result = await client.send({ command: 'ping' });
+    return JSON.stringify(result);
   } catch (err) {
     return err.stack;
   }
@@ -14,8 +14,8 @@ async function getRippledData() {
 
 wallet.registerRpcMessageHandler(async (originString, requestObject) => {
   switch (requestObject.method) {
-    case 'hello':
-      const data = await getRippledData();
+    case 'ping':
+      const data = await getPing();
       return wallet.request({
         method: 'snap_confirm',
         params: [
