@@ -1,7 +1,7 @@
 const RIPPLED_URL = 'wss://s2.ripple.com:51233';
 const { XrplClient } = require('xrpl-client');
 // const rac = require('ripple-address-codec');
-const rk = require('ripple-keypairs')
+const rk = require('ripple-keypairs');
 
 const client = new XrplClient(RIPPLED_URL);
 
@@ -36,8 +36,8 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
         method: 'snap_manageState',
         params: ['update', state],
       });
-      const {publicKey} = rk.deriveKeypair(state.seed)
-      const classicAddress = rk.deriveAddress(publicKey)
+      const { publicKey } = rk.deriveKeypair(state.seed);
+      const classicAddress = rk.deriveAddress(publicKey);
       return wallet.request({
         method: 'snap_confirm',
         params: [
