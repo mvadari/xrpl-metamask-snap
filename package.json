@@ -1,7 +1,7 @@
 {
   "name": "@mvadari/xrpl-snap",
-  "version": "0.7.1",
-  "description": "The 'Hello, world!' of MetaMask Snaps.",
+  "version": "0.1.0",
+  "description": "Proof of concept for an XRPL Metamask Snap.",
   "repository": {
     "type": "git",
     "url": "https://github.com/mvadari/xrpl-metamask-snap.git"
