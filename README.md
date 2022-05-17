@@ -1,18 +1,6 @@
-# @metamask/template-snap
+# Proof of concept XRPL Metamask Snap
 
-The "Hello, world!" of MetaMask Snaps, and also a GitHub template repository.
-For instructions, see [the MetaMask documentation](https://docs.metamask.io/guide/snaps.html).
-
-## Cloning
-
-If you clone or create this repository outside the MetaMask GitHub organization, you probably want to run `./scripts/cleanup.sh` to remove some files that will not work properly outside the MetaMask GitHub organization.
-
-This repository contains other GitHub Actions that you may find useful, see `.github/workflows` and [Releasing & Publishing](#releasing-publishing) below for more information.
-
-Note that the `action-publish-relase.yml` workflow contains a step that publishes the frontend of this snap (contained in the `public/` directory) to GitHub pages.
-If you do not want to publish the frontend to GitHub pages, simply remove the step named "Publish to GitHub Pages" in that workflow.
-
-If you don't wish to use any of the existing GitHub actions in this repository, simply delete the `.github/workflows` directory.
+Based on `@metamask/template-snap`
 
 ## Contributing
 
