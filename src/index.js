@@ -30,7 +30,7 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
   }
 
   switch (requestObject.method) {
-    case 'storeSeed':
+    case 'storeSeed': {
       state.seed = requestObject.seed;
       await wallet.request({
         method: 'snap_manageState',
@@ -48,7 +48,9 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
           },
         ],
       });
-    case 'signMessage':
+    }
+
+    case 'signMessage': {
       const { privateKey } = rk.deriveKeypair(state.seed);
       const signedMessage = rk.sign(requestObject.message, privateKey);
       return wallet.request({
@@ -61,7 +63,9 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
           },
         ],
       });
-    case 'ping':
+    }
+
+    case 'ping': {
       const data = await getPing();
       return wallet.request({
         method: 'snap_confirm',
@@ -74,6 +78,7 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
           },
         ],
       });
+    }
     default:
       throw new Error('Method not found.');
   }
