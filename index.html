@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Hello, Snaps!</title>
-    <link rel="icon" type="image/svg" href="./images/icon.svg"/>
+    <link rel="icon" type="image/svg" href="./images/icon.svg" />
   </head>
 
   <body>
@@ -14,32 +14,35 @@
         <li>Please note that:</li>
         <ul>
           <li>
-            The <code>snap.manifest.json</code> and <code>package.json</code> must be located in the server root directory..
+            The <code>snap.manifest.json</code> and
+            <code>package.json</code> must be located in the server root
+            directory..
           </li>
           <li>
-            The Snap bundle must be hosted at the location specified by the <code>location</code> field of <code>snap.manifest.json</code>.
+            The Snap bundle must be hosted at the location specified by the
+            <code>location</code> field of <code>snap.manifest.json</code>.
           </li>
         </ul>
       </ul>
     </details>
-    <br/>
+    <br />
 
     <button class="connect">Connect</button>
     <button class="sendPing">Send Ping</button>
 
     <form id="storeSeed">
       <fieldset>
-        <label for="seed">Seed:</label> 
-        <input type="text" id="seed" name="seed"><br>
-        <input type="submit" id="storeSeed" value="Save">
+        <label for="seed">Seed:</label>
+        <input type="text" id="seed" name="seed" /><br />
+        <input type="submit" id="storeSeed" value="Save" />
       </fieldset>
     </form>
 
     <form id="signMessage">
       <fieldset>
-        <label for="message">Message:</label> 
-        <input type="text" id="message" name="message"><br>
-        <input type="submit" id="signMessage" value="Save">
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" /><br />
+        <input type="submit" id="signMessage" value="Save" />
       </fieldset>
     </form>
   </body>
@@ -47,79 +50,89 @@
   <script>
     const snapId = `local:${window.location.href}`;
 
-    const connectButton = document.querySelector('button.connect')
-    const sendButton = document.querySelector('button.sendPing')
+    const connectButton = document.querySelector('button.connect');
+    const sendButton = document.querySelector('button.sendPing');
 
-    connectButton.addEventListener('click', connect)
-    sendButton.addEventListener('click', sendPing)
+    connectButton.addEventListener('click', connect);
+    sendButton.addEventListener('click', sendPing);
 
     // here we get permissions to interact with and install the snap
-    async function connect () {
+    async function connect() {
       await ethereum.request({
         method: 'wallet_enable',
-        params: [{
-          wallet_snap: { [snapId]: {} },
-        }]
-      })
+        params: [
+          {
+            wallet_snap: { [snapId]: {} },
+          },
+        ],
+      });
     }
 
     // here we call the snap's "ping" method
-    async function sendPing () {
+    async function sendPing() {
       try {
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
-          params: [snapId, {
-            method: 'ping'
-          }]
-        })
+          params: [
+            snapId,
+            {
+              method: 'ping',
+            },
+          ],
+        });
       } catch (err) {
-        console.error(err)
-        alert('Problem happened: ' + err.message || err)
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
       }
     }
 
-    const storeSeedForm = document.getElementById('storeSeed')
-    storeSeedForm.addEventListener('submit', storeSeed)
+    const storeSeedForm = document.getElementById('storeSeed');
+    storeSeedForm.addEventListener('submit', storeSeed);
 
-    async function storeSeed (e) {
-      e.preventDefault() // to prevent default form behavior 
+    async function storeSeed(e) {
+      e.preventDefault(); // to prevent default form behavior
 
-      const seed = document.getElementById('seed').value
+      const seed = document.getElementById('seed').value;
 
-      try { 
-          const response = await ethereum.request({
-            method: 'wallet_invokeSnap', 
-            params: [snapId, {
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [
+            snapId,
+            {
               method: 'storeSeed',
-              seed: seed
-            }]
-          })
-      } catch (err) { 
-          console.error(err)
-          alert('Problem happened: ' + err.message || err)
+              seed: seed,
+            },
+          ],
+        });
+      } catch (err) {
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
       }
     }
 
-    const signMessageForm = document.getElementById('signMessage')
-    signMessageForm.addEventListener('submit', signMessage)
-  
-    async function signMessage (e) {
-      e.preventDefault() // to prevent default form behavior 
+    const signMessageForm = document.getElementById('signMessage');
+    signMessageForm.addEventListener('submit', signMessage);
 
-      const message = document.getElementById('message').value
-      console.log(message);
+    async function signMessage(e) {
+      e.preventDefault(); // to prevent default form behavior
 
-      try { 
-          const response = await ethereum.request({
-            method: 'wallet_invokeSnap', 
-            params: [snapId, {
+      const message = document.getElementById('message').value;
+
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [
+            snapId,
+            {
               method: 'signMessage',
-              message: message
-            }]
-          })
-      } catch (err) { 
-          console.error(err)
-          alert('Problem happened: ' + err.message || err)
+              message: message,
+            },
+          ],
+        });
+      } catch (err) {
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
       }
     }
   </script>

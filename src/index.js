@@ -74,7 +74,7 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
             prompt: `Hello, ${originString}!`,
             description:
               'This custom confirmation is just for display purposes.',
-            textAreaContent: `Current fee estimates: ${data}`,
+            textAreaContent: `Ping result: ${data}`,
           },
         ],
       });

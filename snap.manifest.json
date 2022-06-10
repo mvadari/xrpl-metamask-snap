@@ -1,5 +1,5 @@
 {
-  "version": "0.7.1",
+  "version": "0.1.0",
   "proposedName": "XRPL Metamask Snap",
   "description": "A MetaMask Snap for connection to the XRPL.",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/mvadari/xrpl-metamask-snap.git"
   },
   "source": {
-    "shasum": "/x4n9l6SP+/ojq6ak7eScslmNGVBt6yKypTLSRkyvM8=",
+    "shasum": "EkQNozAY7MH+EB4p66y55TGtvx6p1DOSEzgaPfgKr4s=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
